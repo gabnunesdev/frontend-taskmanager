@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
-
 import { toast } from "react-hot-toast";
+import axios from "axios";
 
 import CustomButton from "./CustomButton";
 import CustomInput from "./CustomInput";
@@ -21,6 +21,11 @@ const AddTask = () => {
         toast.error("Digite uma tarefa antes de adicionar", { duration: 3000 });
         return;
       }
+
+      await axios.post("http://localhost:8000/tasks", {
+        description: task,
+        isCompleted: false,
+      });
     } catch (error) {
       toast.error("Erro ao adicionar tarefa");
       console.log(error);
