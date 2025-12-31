@@ -8,7 +8,7 @@ import CustomInput from "./CustomInput";
 
 import "./AddTask.scss";
 
-const AddTask = () => {
+const AddTask = ({ onTaskAdded }) => {
   const [task, setTask] = useState("");
 
   const onChange = (e) => {
@@ -22,10 +22,13 @@ const AddTask = () => {
         return;
       }
 
-      await axios.post("http://localhost:8000/tasks", {
+      const { data } = await axios.post("http://localhost:8000/tasks", {
         description: task,
         isCompleted: false,
       });
+
+      onTaskAdded(data);
+      setTask("");
     } catch (error) {
       toast.error("Erro ao adicionar tarefa");
       console.log(error);

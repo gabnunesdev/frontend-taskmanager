@@ -20,12 +20,16 @@ const Tasks = () => {
     fetchTasks();
   }, []);
 
+  const handleAddTask = (newTask) => {
+    setTasks((prev) => [...prev, newTask]);
+  };
+
   return (
     <div className="tasks-container">
       <h2>Minhas Tarefas</h2>
       <div className="last-tasks">
         <h3>Últimas Tarefas</h3>
-        <AddTask />
+        <AddTask onTaskAdded={handleAddTask} />
         <div className="tasks-list">
           {tasks
             .filter((task) => task.isCompleted === false)
